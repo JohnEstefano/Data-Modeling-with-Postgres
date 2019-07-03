@@ -29,7 +29,7 @@ level varchar);""")
 song_table_create = ("""CREATE TABLE IF NOT EXISTS songs
 (song_id varchar PRIMARY KEY, 
 title varchar, 
-artist_id varchar, 
+artist_id varchar NOT NULL, 
 year int, 
 duration float);""")
 
@@ -69,7 +69,7 @@ first_name,
 last_name, 
 gender, 
 level) 
-VALUES (%s, %s, %s, %s, %s) ON CONFLICT (user_id) DO NOTHING;
+VALUES (%s, %s, %s, %s, %s) ON CONFLICT (user_id) DO UPDATE SET level=EXCLUDED.level;
 """)
 
 song_table_insert = ("""INSERT INTO songs 
